@@ -7,14 +7,14 @@ from simulation import Simulation, StrategySummary
 from void_cascade import VoidCascade
 
 
-RNG_SEED = 49
+RNG_SEED = 42
 REWARD_GOAL = {
-    RewardType.VOIDGEL_ORB: 250,
-    RewardType.THRAX_PLASM: 1500,
     RewardType.ARCANE: 8,
+    RewardType.RARE_VOID_RELIC_REWARD: 1,
+    RewardType.UNCOMMON_VOID_RELIC_REWARD: 4
 }
-TRIALS_PER_STRATEGY = 25
-STRATEGIES = [1, 2, 3, 4, 5, 6, 7, 8]
+TRIALS_PER_STRATEGY = 50
+STRATEGIES = [2, 3, 4, 5, 6, 7, 8]
 
 
 def run_strategy(strategy: int) -> StrategySummary:
@@ -51,22 +51,20 @@ def print_summary_table(rows: list[StrategySummary]) -> None:
 
 
 def print_extra_reward_table(rows: list[StrategySummary]) -> None:
-    reward_types = sorted(
-        {reward for row in rows for reward in row.extra_rewards.keys()},
-        key=lambda reward: reward.name,
-    )
-
-    print("\nAverage extra rewards by item")
-    print("-" * 120)
-    print(f"{'Strategy':>8} | {'Reward type':>28} | {'Avg extra':>12}")
-    print("-" * 120)
+    print("\nAverage extra rewards by strategy")
 
     for row in rows:
+        reward_types = sorted(row.extra_rewards.keys(), key=lambda reward: reward.name)
+        print(f"\nStrategy {row.strategy}")
+        print("-" * 80)
+        print(f"{'Reward type':>32} | {'Avg extra':>12}")
+        print("-" * 80)
+
         for reward_type in reward_types:
             extra = row.extra_rewards.get(reward_type, 0.0)
-            print(f"{row.strategy:>8} | {reward_type.name:>28} | {extra:>12.2f}")
+            print(f"{reward_type.name:>32} | {extra:>12.2f}")
 
-    print("-" * 120)
+        print("-" * 80)
 
 
 def main() -> None:

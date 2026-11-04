@@ -9,11 +9,11 @@ class VoidCascade(Mission):
 
 
     def get_menu_time(self, round: int) -> int:
-        return 20
+        return 10
 
 
     def get_reset_time(self):
-        return 30
+        return 60
 
     def get_completion_time(self, round: int) -> int:
         if round not in VOID_CASCADE_REPETITION_TIMES:
@@ -138,7 +138,7 @@ VOID_CASCADE_EXPECTED_ENEMY_DROPS = {
     4: {
         RewardType.VOIDGEL_ORB: 15.66666667,
         RewardType.THRAX_PLASM: 67,
-        RewardType.ARCANE: 1,
+        RewardType.ARCANE: 0.6666666667,
     },
     5: {
         RewardType.VOIDGEL_ORB: 14,
