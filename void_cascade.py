@@ -9,8 +9,11 @@ class VoidCascade(Mission):
 
 
     def get_menu_time(self, round: int) -> int:
-        return (20 * round) + 30
+        return 20
 
+
+    def get_reset_time(self):
+        return 30
 
     def get_completion_time(self, round: int) -> int:
         if round not in VOID_CASCADE_REPETITION_TIMES:
@@ -40,37 +43,29 @@ class VoidCascade(Mission):
             RewardType.UNCOMMON_VOID_RELIC_REWARD,
             RewardType.RARE_VOID_RELIC_REWARD,
         )
-        rewards = {}
-        for _ in range(round):
-            index = self.rng.choice(len(reward_types), p=[0.76, 0.22, 0.02])
-            reward_type = reward_types[index]
-            rewards[reward_type] = rewards.get(reward_type, 0.0) + 1.0
-        return rewards
+        index = self.rng.choice(len(reward_types), p=[0.76, 0.22, 0.02])
+        reward_type = reward_types[index]
+        return {reward_type: 1.0}
 
 
     def get_mission_rewards(self, round: int) -> dict[RewardType, float]:
-        total_rewards = {}
+        rotation_idx = round % len(VOID_CASCADE_ROTATION)
+        rotation = VOID_CASCADE_ROTATION[rotation_idx]
 
-        for i in range(round):
-            rotation_idx = i % len(VOID_CASCADE_ROTATION)
-            rotation = VOID_CASCADE_ROTATION[rotation_idx]
+        if rotation not in VOID_CASCADE_DROP_TABLES:
+            raise RuntimeError("No drop table defined for rotation: " + rotation)
 
-            if rotation not in VOID_CASCADE_DROP_TABLES:
-                raise RuntimeError("No drop table defined for rotation: " + rotation)
+        table = VOID_CASCADE_DROP_TABLES[rotation]
 
-            table = VOID_CASCADE_DROP_TABLES[rotation]
+        probabilities = np.array(
+            [reward.probability for reward in table]
+        )
 
-            probabilities = np.array(
-                [reward.probability for reward in table]
-            )
+        probabilities /= probabilities.sum()
+        index = self.rng.choice(len(table), p=probabilities)
+        chosen_reward = table[index]
 
-            probabilities /= probabilities.sum()
-            index = self.rng.choice(len(table), p=probabilities)
-            chosen_reward = table[index]
-
-            total_rewards[chosen_reward.type] = total_rewards.get(chosen_reward.type, 0) + chosen_reward.quantity
-
-        return total_rewards
+        return {chosen_reward.type: chosen_reward.quantity}
 
 
     def get_enemy_drops(self, round: int) -> dict[RewardType, float]:
@@ -113,13 +108,13 @@ VOID_CASCADE_DROP_TABLES = {
 # Value: seconds to finish round
 VOID_CASCADE_REPETITION_TIMES = {
     1: 265,
-    2: 511,
-    3: 775, 
-    4: 1152,
-    5: 1628,
-    6: 2142,
-    7: 2919,
-    8: 3781,
+    2: 246,
+    3: 529,
+    4: 623,
+    5: 1005,
+    6: 1137,
+    7: 1782,
+    8: 1999,
 }
 
 # Key: round
@@ -131,38 +126,38 @@ VOID_CASCADE_EXPECTED_ENEMY_DROPS = {
         RewardType.ARCANE: 0.6666666667,
     },
     2: {
-        RewardType.VOIDGEL_ORB: 25,
-        RewardType.THRAX_PLASM: 112.3333333,
-        RewardType.ARCANE: 1.333333333,
+        RewardType.VOIDGEL_ORB: 13,
+        RewardType.THRAX_PLASM: 54,
+        RewardType.ARCANE: 0.6666666667,
     },
     3: {
-        RewardType.VOIDGEL_ORB: 33,
-        RewardType.THRAX_PLASM: 150,
-        RewardType.ARCANE: 1.666666667,
+        RewardType.VOIDGEL_ORB: 8,
+        RewardType.THRAX_PLASM: 44.33333333,
+        RewardType.ARCANE: 0.3333333333,
     },
     4: {
-        RewardType.VOIDGEL_ORB: 48.66666667,
-        RewardType.THRAX_PLASM: 237,
-        RewardType.ARCANE: 2.666666667,
+        RewardType.VOIDGEL_ORB: 15.66666667,
+        RewardType.THRAX_PLASM: 67,
+        RewardType.ARCANE: 1,
     },
     5: {
-        RewardType.VOIDGEL_ORB: 59.33333333,
-        RewardType.THRAX_PLASM: 356.3333333,
-        RewardType.ARCANE: 3,
+        RewardType.VOIDGEL_ORB: 14,
+        RewardType.THRAX_PLASM: 119.3333333,
+        RewardType.ARCANE: 0.3333333333,
     },
     6: {
-        RewardType.VOIDGEL_ORB: 71,
-        RewardType.THRAX_PLASM: 440.3333333,
-        RewardType.ARCANE: 3.333333333,
+        RewardType.VOIDGEL_ORB: 15,
+        RewardType.THRAX_PLASM: 84,
+        RewardType.ARCANE: 0.3333333333,
     },
     7: {
-        RewardType.VOIDGEL_ORB: 84.66666667,
-        RewardType.THRAX_PLASM: 550.6666667,
-        RewardType.ARCANE: 3.666666667,
+        RewardType.VOIDGEL_ORB: 13.66666667,
+        RewardType.THRAX_PLASM: 110.3333333,
+        RewardType.ARCANE: 0.3333333333,
     },
     8: {
-        RewardType.VOIDGEL_ORB: 101.6666667,
-        RewardType.THRAX_PLASM: 653,
-        RewardType.ARCANE: 4.333333333,
+        RewardType.VOIDGEL_ORB: 17,
+        RewardType.THRAX_PLASM: 102.3333333,
+        RewardType.ARCANE: 0.6666666667,
     },
 }

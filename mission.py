@@ -1,9 +1,13 @@
 from abc import ABC, abstractmethod
-from reward import RewardType, MissionReward
+from reward import RewardType
 
 class Mission(ABC):
     @abstractmethod
     def get_menu_time(self, round: int) -> int:
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_reset_time(self) -> int:
         raise NotImplementedError
 
     @abstractmethod
