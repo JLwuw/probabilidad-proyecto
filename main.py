@@ -7,14 +7,15 @@ from simulation import Simulation, StrategySummary
 from void_cascade import VoidCascade
 
 
-RNG_SEED = 42
+RNG_SEED = 69
 REWARD_GOAL = {
-    RewardType.ARCANE: 8,
-    RewardType.RARE_VOID_RELIC_REWARD: 1,
-    RewardType.UNCOMMON_VOID_RELIC_REWARD: 4
+    RewardType.ARCANE: 3,
+    RewardType.VOIDGEL_ORB: 100.0,
+    RewardType.THRAX_PLASM: 1000,
+    RewardType.UNCOMMON_VOID_RELIC_REWARD: 1,
 }
 TRIALS_PER_STRATEGY = 50
-STRATEGIES = [2, 3, 4, 5, 6, 7, 8]
+STRATEGIES = [1, 2, 3, 4, 5]
 
 
 def run_strategy(strategy: int) -> StrategySummary:

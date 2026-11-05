@@ -9,11 +9,11 @@ class VoidCascade(Mission):
 
 
     def get_menu_time(self, round: int) -> int:
-        return 10
+        return 20
 
 
     def get_reset_time(self):
-        return 60
+        return 180
 
     def get_completion_time(self, round: int) -> int:
         if round not in VOID_CASCADE_REPETITION_TIMES:
@@ -127,37 +127,37 @@ VOID_CASCADE_EXPECTED_ENEMY_DROPS = {
     },
     2: {
         RewardType.VOIDGEL_ORB: 13,
-        RewardType.THRAX_PLASM: 54,
+        RewardType.THRAX_PLASM: 74,
         RewardType.ARCANE: 0.6666666667,
     },
     3: {
-        RewardType.VOIDGEL_ORB: 8,
-        RewardType.THRAX_PLASM: 44.33333333,
+        RewardType.VOIDGEL_ORB: 9.66666667,
+        RewardType.THRAX_PLASM: 74.33333333,
         RewardType.ARCANE: 0.3333333333,
     },
     4: {
-        RewardType.VOIDGEL_ORB: 15.66666667,
-        RewardType.THRAX_PLASM: 67,
+        RewardType.VOIDGEL_ORB: 13,
+        RewardType.THRAX_PLASM: 80.3333333333,
         RewardType.ARCANE: 0.6666666667,
     },
     5: {
-        RewardType.VOIDGEL_ORB: 14,
-        RewardType.THRAX_PLASM: 119.3333333,
+        RewardType.VOIDGEL_ORB: 15,
+        RewardType.THRAX_PLASM: 107.3333333333,
         RewardType.ARCANE: 0.3333333333,
     },
     6: {
-        RewardType.VOIDGEL_ORB: 15,
-        RewardType.THRAX_PLASM: 84,
+        RewardType.VOIDGEL_ORB: 11.66666667,
+        RewardType.THRAX_PLASM: 116,
         RewardType.ARCANE: 0.3333333333,
     },
     7: {
-        RewardType.VOIDGEL_ORB: 13.66666667,
-        RewardType.THRAX_PLASM: 110.3333333,
+        RewardType.VOIDGEL_ORB: 17,
+        RewardType.THRAX_PLASM: 107,
         RewardType.ARCANE: 0.3333333333,
     },
     8: {
         RewardType.VOIDGEL_ORB: 17,
-        RewardType.THRAX_PLASM: 102.3333333,
+        RewardType.THRAX_PLASM: 135,
         RewardType.ARCANE: 0.6666666667,
     },
 }
