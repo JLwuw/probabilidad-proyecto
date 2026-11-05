@@ -10,8 +10,8 @@ from void_cascade import VoidCascade
 RNG_SEED = 69
 REWARD_GOAL = {
     RewardType.ARCANE: 3,
-    RewardType.VOIDGEL_ORB: 100.0,
-    RewardType.THRAX_PLASM: 1000,
+    RewardType.VOIDGEL_ORB: 50.0,
+    RewardType.THRAX_PLASM: 500,
     RewardType.UNCOMMON_VOID_RELIC_REWARD: 1,
 }
 TRIALS_PER_STRATEGY = 50

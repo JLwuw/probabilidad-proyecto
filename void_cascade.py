@@ -38,18 +38,20 @@ class VoidCascade(Mission):
 
 
     def get_void_relic_reward(self, round: int) -> dict[RewardType, float]:
+        """Choose one reward: highest rarity among four intact squad relics."""
         reward_types = (
             RewardType.COMMON_VOID_RELIC_REWARD,
             RewardType.UNCOMMON_VOID_RELIC_REWARD,
             RewardType.RARE_VOID_RELIC_REWARD,
         )
-        index = self.rng.choice(len(reward_types), p=[0.76, 0.22, 0.02])
+        rolls = self.rng.choice(len(reward_types), size=4, p=[0.76, 0.22, 0.02])
+        index = int(np.max(rolls))
         reward_type = reward_types[index]
         return {reward_type: 1.0}
 
 
     def get_mission_rewards(self, round: int) -> dict[RewardType, float]:
-        rotation_idx = round % len(VOID_CASCADE_ROTATION)
+        rotation_idx = (round - 1) % len(VOID_CASCADE_ROTATION)
         rotation = VOID_CASCADE_ROTATION[rotation_idx]
 
         if rotation not in VOID_CASCADE_DROP_TABLES:
@@ -80,27 +82,32 @@ class VoidCascade(Mission):
 VOID_CASCADE_ROTATION = ['A', 'A', 'B', 'C']
 
 
-# key: rotation
-# value: drop table
 VOID_CASCADE_DROP_TABLES = {
     'A': [
-        MissionReward(RewardType.CREDITS, 5000, 50.00),
-        MissionReward(RewardType.ENDO, 450, 18.75),
-        MissionReward(RewardType.VOIDGEL_ORB, 1, 9.38),
-        MissionReward(RewardType.MESO_RELIC, 1, 21.87),
+        MissionReward(RewardType.CREDITS, 5000, 42.33),
+        MissionReward(RewardType.ENDO, 450, 15.87),
+        MissionReward(RewardType.VOIDGEL_ORB, 1, 7.94),
+        MissionReward(RewardType.MESO_RELIC, 1, 8 * 2.65),
+        MissionReward(RewardType.AEOLAK_BARREL_BLUEPRINT, 1, 4.23),
+        MissionReward(RewardType.HESPAR_HANDLE_BLUEPRINT, 1, 4.23),
+        MissionReward(RewardType.NARIN_NEUROPTICS_BLUEPRINT, 1, 4.23),
     ],
 
     'B': [
-        MissionReward(RewardType.CREDITS, 7500, 50.00),
-        MissionReward(RewardType.ENDO, 600, 20.00),
-        MissionReward(RewardType.ENTRATI_LANTHORN, 1, 6.67),
-        MissionReward(RewardType.NEO_RELIC, 1, 23.31),
+        MissionReward(RewardType.CREDITS, 7500, 43.10),
+        MissionReward(RewardType.ENDO, 600, 17.24),
+        MissionReward(RewardType.ENTRATI_LANTHORN, 1, 5.75),
+        MissionReward(RewardType.NEO_RELIC, 1, 7 * 2.87),
+        MissionReward(RewardType.AEOLAK_BARREL_BLUEPRINT, 1, 4.60),
+        MissionReward(RewardType.HESPAR_HANDLE_BLUEPRINT, 1, 4.60),
+        MissionReward(RewardType.NARIN_NEUROPTICS_BLUEPRINT, 1, 4.60),
     ],
 
     'C': [
-        MissionReward(RewardType.LENS, 1, 80.00),
-        MissionReward(RewardType.AEOLAK_BARREL_BLUEPRINT, 1, 10.00),
-        MissionReward(RewardType.HESPAR_HANDLE_BLUEPRINT, 1, 10.00),
+        MissionReward(RewardType.LENS, 1, 5 * 15.00),
+        MissionReward(RewardType.AEOLAK_BARREL_BLUEPRINT, 1, 8.33),
+        MissionReward(RewardType.HESPAR_HANDLE_BLUEPRINT, 1, 8.33),
+        MissionReward(RewardType.NARIN_NEUROPTICS_BLUEPRINT, 1, 8.33),
     ]
 }
 

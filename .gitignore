@@ -1,1 +1,5 @@
 /__pycache__
+/.report_dependencies
+/.matplotlib
+/informe
+generar_informe.py

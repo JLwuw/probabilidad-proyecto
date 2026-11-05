@@ -22,6 +22,8 @@ class RewardType(Enum):
     UNCOMMON_VOID_RELIC_REWARD = auto()
     RARE_VOID_RELIC_REWARD = auto()
 
+    NARIN_NEUROPTICS_BLUEPRINT = auto()
+
 
 @dataclass(frozen=True)
 class MissionReward:
