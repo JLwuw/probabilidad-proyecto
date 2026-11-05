@@ -7,11 +7,11 @@ from simulation import Simulation, StrategySummary
 from void_cascade import VoidCascade
 
 
-RNG_SEED = 69
+RNG_SEED = 42
 REWARD_GOAL = {
     RewardType.ARCANE: 3,
     RewardType.VOIDGEL_ORB: 50.0,
-    RewardType.THRAX_PLASM: 500,
+    RewardType.THRAX_PLASM: 200,
     RewardType.UNCOMMON_VOID_RELIC_REWARD: 1,
 }
 TRIALS_PER_STRATEGY = 50
