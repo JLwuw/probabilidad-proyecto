@@ -112,8 +112,9 @@ class Simulation:
             total_reward = result.total_rewards
 
             for reward_type, goal_amount in self.reward_goal.items():
-                if total_reward[reward_type] > goal_amount:
-                    extra_reward_history[reward_type].append(total_reward[reward_type] - goal_amount)
+                extra_reward_history[reward_type].append(
+                    max(0.0, total_reward[reward_type] - goal_amount)
+                )
 
 
         extra_rewards = {}
