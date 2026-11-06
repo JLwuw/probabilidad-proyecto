@@ -13,7 +13,7 @@ class VoidCascade(Mission):
 
 
     def get_reset_time(self):
-        return 130
+        return 120
 
     def get_completion_time(self, round: int) -> int:
         if round not in VOID_CASCADE_REPETITION_TIMES:
